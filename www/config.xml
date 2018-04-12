@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "mob.app.dev.app"
+        version   = "1.0.0">
+
+    <name>Application Test</name>
+
+    <description>
+        A sample application that counts the occurances of lifecycle events.
+    </description>
+
+    <author href="worcester.ac.uk" email="c.bowers@worc.ac.uk">
+        WBS Computing
+    </author>
+
+    <preference name="phonegap-version" value="cli-7.0.1" />
+	
+    <preference name="permissions"                value="none"/>   
+	
+	<access origin="*"/>
+   	<plugin name="cordova-plugin-whitelist" version="1" />
+</widget>
