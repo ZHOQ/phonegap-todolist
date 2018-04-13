@@ -22,4 +22,6 @@
 	
 	<access origin="*"/>
    	<plugin name="cordova-plugin-whitelist" version="1" />
+    <plugin name="cordova-plugin-geolocation" spec="3.0.0" />
+    <plugin name="cordova-plugin-geolocation-android-activator" spec="1.1.2" />
 </widget>
