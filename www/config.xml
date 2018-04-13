@@ -26,6 +26,8 @@
     
     <plugin name="cordova-plugin-geolocation-android-activator" />
    
+    
+    <!--Apple iOS 10 or newer: Adding a parameter to the ios build to allow suer to give permission to access location-->    
     <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
         <string>need location access to find things nearby</string>
     </edit-config>
