@@ -63,6 +63,9 @@ function onAddTask() {
 //Call this function when you want to get the current position
 function getPosition() {
 	
+    
+    alert("getPosition");
+    
 	//instruct location service to get position with appropriate callbacks
 	navigator.geolocation.getCurrentPosition(successPosition, failPosition);
 }
@@ -71,6 +74,7 @@ function getPosition() {
 //called when the position is successfully determined
 function successPosition(position) {
 	
+    alert("successPosition " + position.coords.latitude);
 	//You can find out more details about what the position obejct contains here:
 	// http://www.w3schools.com/html/html5_geolocation.asp
 	
@@ -89,6 +93,7 @@ function successPosition(position) {
 
 //called if the position is not obtained correctly
 function failPosition(error) {
+      alert("failPosition");
 	//change time box to show updated message
 	$('#lattext').val("Error getting data: " + error);
     $('#longtext').val("Error getting data: " + error);
