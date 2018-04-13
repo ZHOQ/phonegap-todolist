@@ -22,9 +22,9 @@
 	
 	<access origin="*"/>
    	<plugin name="cordova-plugin-whitelist" version="1" />
-    <plugin name="cordova-plugin-geolocation" spec="3.0.0" />
+    <plugin name="cordova-plugin-geolocation"  />
     
-    <plugin name="cordova-plugin-geolocation-android-activator" spec="1.1.2" />
+    <plugin name="cordova-plugin-geolocation-android-activator" />
    
     <!--Apple iOS 10 or newer: Adding a parameter to the ios build to allow suer to give permission to access location-->    
         <config-file platform="ios" parent="NSLocationWhenInUseUsageDescription" mode="merge">
