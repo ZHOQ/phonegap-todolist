@@ -16,7 +16,7 @@
         WBS Computing
     </author>
 
-    <preference name="phonegap-version" value="cli-7.0.1" />
+   <!-- <preference name="phonegap-version" value="cli-7.0.1" />-->
 	
     <preference name="permissions"                value="none"/>   
 	
