@@ -15,8 +15,8 @@ $(document).on("pageshow","#todopage", onPageShow);
 
 function processResults(tasks) {
     //display the first task in an array of tasks. 
-    alert(tasks[0].Task);
-    alert(tasks[1].Task);
+    //alert(tasks[0].Task);
+    //alert(tasks[1].Task);
     //wipe the list clean
     $('#taskList').empty();
     //add each tasks
@@ -64,7 +64,7 @@ function onAddTask() {
 function getPosition() {
 	
     
-    alert("getPosition");
+    //alert("getPosition");
     
 	//instruct location service to get position with appropriate callbacks
 	navigator.geolocation.getCurrentPosition(successPosition, failPosition);
@@ -74,7 +74,7 @@ function getPosition() {
 //called when the position is successfully determined
 function successPosition(position) {
 	
-    alert("successPosition " + position.coords.latitude);
+    //alert("successPosition " + position.coords.latitude);
 	//You can find out more details about what the position obejct contains here:
 	// http://www.w3schools.com/html/html5_geolocation.asp
 	
