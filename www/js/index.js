@@ -11,7 +11,7 @@ var APPLICATION_ID = 'C53D7B11-1C15-6058-FF51-7ACFFE97EF00';
 var API_KEY = '7517A5E0-1DCB-4526-FF91-58DC6C2AFE00';
 
 Backendless.initApp(APPLICATION_ID, API_KEY);
-$(document).on("pageshow","#todopage", onPageShow);
+$(document).on("pageshow","#positionpage", onPageShow);
 
 function processResults(tasks) {
     //display the first task in an array of tasks. 
@@ -64,7 +64,7 @@ function onAddTask() {
 function getPosition() {
 	
     
-    //alert("getPosition");
+    alert("getPosition");
     
 	//instruct location service to get position with appropriate callbacks
 	navigator.geolocation.getCurrentPosition(successPosition, failPosition);
@@ -74,7 +74,7 @@ function getPosition() {
 //called when the position is successfully determined
 function successPosition(position) {
 	
-    //alert("successPosition " + position.coords.latitude);
+    alert("successPosition " + position.coords.latitude);
 	//You can find out more details about what the position obejct contains here:
 	// http://www.w3schools.com/html/html5_geolocation.asp
 	
