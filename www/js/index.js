@@ -2,7 +2,7 @@
 $(document).on('pageinit', function() {
 	
 	//set up listener for button click
-	$(document).on('click', getPosition);
+	$(document).on("click", "#getLocationButton", getPosition);
 	
 	
 });
