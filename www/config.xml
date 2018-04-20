@@ -21,7 +21,7 @@
     <!--<preference name="permissions"                value="none"/>-->   
 	
 	<access origin="*"/>
-   	<!--<plugin name="cordova-plugin-whitelist" version="1" />-->
+   	<plugin name="cordova-plugin-whitelist" />
     <plugin name="cordova-plugin-geolocation"  />
     
     <plugin name="cordova-plugin-geolocation-android-activator" />
