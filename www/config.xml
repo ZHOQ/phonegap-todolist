@@ -18,7 +18,7 @@
 
    <!-- <preference name="phonegap-version" value="cli-7.0.1" />-->
 	
-    <preference name="permissions"                value="none"/>   
+    <!--<preference name="permissions"                value="none"/>-->   
 	
 	<access origin="*"/>
    	<plugin name="cordova-plugin-whitelist" version="1" />
