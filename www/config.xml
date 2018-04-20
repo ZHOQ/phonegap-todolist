@@ -24,7 +24,7 @@
    	<plugin name="cordova-plugin-whitelist" />
     <!--<plugin name="cordova-plugin-geolocation"  />
     
-    <plugin name="cordova-plugin-geolocation-android-activator" />
+    <plugin name="cordova-plugin-geolocation-android-activator" />-->
    
     
     <!--Apple iOS 10 or newer: Adding a parameter to the ios build to allow suer to give permission to access location-->    
