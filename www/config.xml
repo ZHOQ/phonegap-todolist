@@ -38,6 +38,6 @@
             <key>NSLocationWhenInUseUsageDescription</key>
             <string>Give me your location! Let me have it!!!</string>
         </array>
-    </config-file>-->
+    </config-file>
     
 </widget>
