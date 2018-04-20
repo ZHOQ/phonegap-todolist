@@ -1,17 +1,28 @@
 //when the jQuery Mobile page is initialised
-//$(document).on('pageinit', function() {
+$(document).on('pageinit', function() {
 	
 	//set up listener for button click
-	$(document).on("click", "#getLocationButton", getPosition);
+	$(document).on("pageshow", "#todopage", homepage);
 	
 	
-//});
+});
 
 var APPLICATION_ID = 'C53D7B11-1C15-6058-FF51-7ACFFE97EF00';
 var API_KEY = '7517A5E0-1DCB-4526-FF91-58DC6C2AFE00';
 Backendless.serverURL = "https://api.backendless.com";
 Backendless.initApp(APPLICATION_ID, API_KEY);
 $(document).on("pageshow","#todopage", onPageShow);
+
+function homepage(){
+    alert( position.coords.latitude);
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+        for (var i = 0; i < position.length; i++) { 
+        if ((Math.abs(latitude - position[i].Latitude) <=0.001) && ((Math.abs(longitude - position[i].Longitude) <=0.001{
+                                                                    document.getElementById("p1").innerHTML=positon[i].PositionName;}
+        
+    }
+}
 
 function processResults(tasks) {
     //display the first task in an array of tasks. 
@@ -46,6 +57,26 @@ function onPageShow() {
 	console.log("page shown");
 } 
 
+$(document).on("pageshow","#createpage", onCreatePageShow);
+
+function onCreatePageShow() {
+    Backendless.Data.of("POSITION").find().then(processPositionResults).catch(error);
+	console.log("page shown");
+}
+
+function processPositionResults(position) {
+    //display the first task in an array of position. 
+    //alert(position[0].PositionName);
+    //add each position
+
+    for (var i = 0; i < position.length; i++) { 
+        $("#addPosition").append("<option value='"+position[i].PositionName+"'>"+position[i].PositionName+"</option>");
+        //refresh the listview
+        
+    }
+
+}
+
 function onAddTask() {
     console.log("add task button clicked");
     var tasktext = $('#addTaskText').val();
@@ -59,7 +90,7 @@ function onAddTask() {
     
 }
 
-
+$(document).on("click", "#getLocationButton", getPosition);
 
 //Call this function when you want to get the current position
 function getPosition() {
@@ -84,8 +115,9 @@ function successPosition(position) {
 	//var time = position.timestamp;
 	var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
-
-
+    latitude = latitude.toFixed(5);
+    longitude = longitude.toFixed(5);
+    
 	//OK. Now we want to update the display with the correct values
 	$('#lattext').val(latitude);
     $('#longtext').val(longitude);
@@ -114,49 +146,4 @@ function onAddPosition() {
     newPosition.Longitude = longitude;
     Backendless.Data.of("Position").save(newPosition).then(saved).catch(error); 
     
-}
-
-
-/*$(document).ready(function(){
-    var url="https://develop.backendless.com/Todolist/data/Position";
-    $.ajax({
-                  type:="get",
-                  url:url,
-                  success:function(Position){
-                      var unitObj = document.getElementById("mySelect");
-                      if(Position != null){
-                          for(var i = 0; i < Position.length; i++){
-                              unitObj.options.add(new Option(Position[i].PositionName,Position[i].PositionName));
-                          }
-                      }
-                  },
-                      error:function(){
-                          J.alert("Error");
-                      }
-                  })
-    
-                  
-                  
-                  })*/
-$(document).on("pageshow","#createpage", onCreatePageShow);
-
-function onCreatePageShow() {
-    Backendless.Data.of("POSITION").find().then(processPositionResults).catch(error);
-	console.log("page shown");
-}
-function processPositionResults(position) {
-    //display the first task in an array of tasks. 
-    //alert(position[0].PositionName);
-    //alert(tasks[1].Task);
-    //wipe the list clean
-    //$('#mySelect').empty();
-    //add each tasks
-
-    for (var i = 0; i < position.length; i++) { 
-        $("#addPosition").append("<option value='"+position[i].PositionName+"'>"+position[i].PositionName+"</option>");
-        //$('#taskList').append("<li>"+tasks[i].Task+" end at: "+date+"</li>");
-        //refresh the listview
-        //$('#mySelect').listview('refresh');
-    }
-
 }
