@@ -9,7 +9,7 @@
 
 var APPLICATION_ID = 'C53D7B11-1C15-6058-FF51-7ACFFE97EF00';
 var API_KEY = '7517A5E0-1DCB-4526-FF91-58DC6C2AFE00';
-
+Backendless.serverURL = "https://api.backendless.com";
 Backendless.initApp(APPLICATION_ID, API_KEY);
 $(document).on("pageshow","#todopage", onPageShow);
 
@@ -20,10 +20,11 @@ function processResults(tasks) {
     //wipe the list clean
     $('#taskList').empty();
     //add each tasks
-    
-    for (var i = 0; i < tasks.length; i++) { 
 
-        $('#taskList').append("<li>"+tasks[i].Task+" end at: "+tasks[i].Deadline+"</li>");
+    for (var i = 0; i < tasks.length; i++) { 
+        var unixtime = new Date(tasks[i].Deadline);
+        var date = unixtime.toDateString();
+        $('#taskList').append("<li>"+tasks[i].Task+" end at: "+date+"</li>");
         //refresh the listview
         $('#taskList').listview('refresh');
     }
@@ -113,4 +114,49 @@ function onAddPosition() {
     newPosition.Longitude = longitude;
     Backendless.Data.of("Position").save(newPosition).then(saved).catch(error); 
     
+}
+
+
+/*$(document).ready(function(){
+    var url="https://develop.backendless.com/Todolist/data/Position";
+    $.ajax({
+                  type:="get",
+                  url:url,
+                  success:function(Position){
+                      var unitObj = document.getElementById("mySelect");
+                      if(Position != null){
+                          for(var i = 0; i < Position.length; i++){
+                              unitObj.options.add(new Option(Position[i].PositionName,Position[i].PositionName));
+                          }
+                      }
+                  },
+                      error:function(){
+                          J.alert("Error");
+                      }
+                  })
+    
+                  
+                  
+                  })*/
+$(document).on("pageshow","#createpage", onCreatePageShow);
+
+function onCreatePageShow() {
+    Backendless.Data.of("POSITION").find().then(processPositionResults).catch(error);
+	console.log("page shown");
+}
+function processPositionResults(position) {
+    //display the first task in an array of tasks. 
+    //alert(position[0].PositionName);
+    //alert(tasks[1].Task);
+    //wipe the list clean
+    //$('#mySelect').empty();
+    //add each tasks
+
+    for (var i = 0; i < position.length; i++) { 
+        $("#addPosition").append("<option value='"+position[i].PositionName+"'>"+position[i].PositionName+"</option>");
+        //$('#taskList').append("<li>"+tasks[i].Task+" end at: "+date+"</li>");
+        //refresh the listview
+        //$('#mySelect').listview('refresh');
+    }
+
 }

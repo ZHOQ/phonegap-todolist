@@ -18,8 +18,8 @@
 
 <div data-role="page" id="todopage">
         
- 	<div data-role="header">Header</div>
-        <a href="#createpage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Create.</a>
+ 	<div data-role="header"><h1>Header</h1><a href="#createpage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Create.</a></div>
+        
   	<div role="main" class="ui-content">
 
         
@@ -36,15 +36,17 @@
     
 <div data-role="page" id="createpage">
         
- 	<div data-role="header">create</div>
+ 	<div data-role="header"><h1>Create</h1></div>
         
   	<div role="main" class="ui-content">
         <form>
         <input type="text" name="textinput" id="addTaskText" value="" placeholder="New Task" />
         <input type="date" name="textinput" id="addDeadline" value="" placeholder="Deadline" />
-
+        <select id="addPosition" name="select">
+            <option>Please select Position</option>
+        </select>
         
-        <input type="text" name="textinput" id="addPosition" value="" placeholder="Position" />
+        <!--<input type="text" name="textinput" id="addPosition" value="" placeholder="Position" />-->
   		<input type="button" id="addTaskButton" value="Add Task" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" />
         </form> 
         <a href="#todopage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Go to Homepage.</a>
@@ -57,7 +59,7 @@
     
     <div data-role="page" id="positionpage">
         
- 	<div data-role="header">position</div>
+        <div data-role="header"><h1>position</h1></div>
         
   	<div role="main" class="ui-content">
     <div data-role="fieldcontain">
