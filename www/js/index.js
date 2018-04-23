@@ -1,22 +1,10 @@
 var latitude, longitude, nowposition;
 
-
-//when the jQuery Mobile page is initialised
-/*$(document).on('pageinit', function() {
-	
-	//set up listener for button click
-	$(document).on("pageshow", "#todopage", homepage);
-	
-	
-});*/
-
 var APPLICATION_ID = 'C53D7B11-1C15-6058-FF51-7ACFFE97EF00';
 var API_KEY = '7517A5E0-1DCB-4526-FF91-58DC6C2AFE00';
 Backendless.serverURL = "https://api.backendless.com";
 Backendless.initApp(APPLICATION_ID, API_KEY);
 $(document).on("pageshow","#todopage", onPageShow);
-
-
 
 function processResults(tasks) {
     //display the first task in an array of tasks. 
@@ -28,11 +16,21 @@ function processResults(tasks) {
     
     console.log("now position" + nowposition);
     for (var i = 0; i < tasks.length; i++) { 
-        if( nowposition == tasks[i].Position){
+        if( nowposition == tasks[i].PositionID){
             var unixtime = new Date(tasks[i].Deadline);
             var date = unixtime.toDateString();
-            $('#taskList').append("<li>"+tasks[i].Task+" end at: "+date+"</li>");
-        
+            $('#taskList').append("<button id="+tasks[i].Task+" class='ui-btn ui-btn-inline ui-corner-all ui-shadow w3-block' >"+tasks[i].Task+" end at: "+date+"</button><br>");
+        	$('#'+tasks[i].Task).on("tap",function(){
+                alert("Stop tapping!");
+                $(this).css('color', 'red');
+            }); 	
+            $('#'+tasks[i].Task).on("swipeleft",function(){
+                $(this).css('color', 'gray');
+                tasks[i].State = 1;
+            });   
+            $('#'+tasks[i].Task).on("swiperight",function(){
+                $(this).css('color', 'blue');
+            });
         }
         //refresh the listview
         $('#taskList').listview('refresh');
@@ -55,6 +53,10 @@ function onPageShow() {
 //    if(nowposition != null)
 //    {Backendless.Data.of("TASKS").find().then(processResults).catch(error);}   
 	console.log("page shown");
+    
+                       
+
+ 
 } 
 
 $(document).on("pageshow","#createpage", onCreatePageShow);
@@ -70,9 +72,9 @@ function processPositionResults(position) {
     //add each position
 
     for (var i = 0; i < position.length; i++) { 
-        $("#addPosition").append("<option value='"+position[i].PositionName+"'>"+position[i].PositionName+"</option>");
+        $("#addPosition").append("<option value='"+position[i].objectId+"'>"+position[i].PositionName+"</option>");
         //refresh the listview
-        
+        console.log(position[i].objectId);
     }
 
 }
@@ -85,7 +87,8 @@ function onAddTask() {
     var newTask = {};
     newTask.Task = tasktext;
     newTask.Deadline = deadline;
-    newTask.Position = position;
+    newTask.PositionID = position;
+    newTask.State = 0;
     Backendless.Data.of("Tasks").save(newTask).then(saved).catch(error); 
     
 }
@@ -137,8 +140,8 @@ $(document).on("click", "#addPositionButton", onAddPosition);
 
 function onAddPosition() {
     console.log("add position button clicked");
-    var latitude = $('#lattext').val();
-    var longitude = $('#longtext').val();
+    latitude = $('#lattext').val();
+    longitude = $('#longtext').val();
     var position = $('#position').val();
     var newPosition = {};
     newPosition.PositionName = position;
@@ -187,8 +190,8 @@ function changeHeader(position){
         if ((Math.abs(latitude - position[i].Latitude) <=0.001) && ((Math.abs(longitude - position[i].Longitude) <=0.001)))
         {
             document.getElementById("header").innerHTML = position[i].PositionName;
-            nowposition = position[i].PositionName;
-            console.log("I am here " + nowposition);
+            nowposition = position[i].objectId;
+            console.log("I am here " + position[i].PositionName + nowposition);
             Backendless.Data.of("TASKS").find().then(processResults).catch(error);   
         
         }
