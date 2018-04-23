@@ -5,10 +5,10 @@ body{
 .form{
 	text-align:center;
 	background:#fff;
-	margin:150px 0 0 -200px;
-	width:400px;
+	margin:0 0 0 0;
+	width:100%;
 	position:relative;
-	left:50%;
+	
     -webkit-box-shadow: 0 0 12px #E7E7E7;
     -moz-box-shadow: 0 0 12px #E7E7E7;
     box-shadow: 0 0 12px #E7E7E7;
