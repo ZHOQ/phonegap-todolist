@@ -1,4 +1,4 @@
-var latitude, longitude;
+var latitude, longitude, nowposition;
 
 
 //when the jQuery Mobile page is initialised
@@ -25,11 +25,15 @@ function processResults(tasks) {
     //wipe the list clean
     $('#taskList').empty();
     //add each tasks
-
+    
+    console.log("now position" + nowposition);
     for (var i = 0; i < tasks.length; i++) { 
-        var unixtime = new Date(tasks[i].Deadline);
-        var date = unixtime.toDateString();
-        $('#taskList').append("<li>"+tasks[i].Task+" end at: "+date+"</li>");
+        if( nowposition == tasks[i].Position){
+            var unixtime = new Date(tasks[i].Deadline);
+            var date = unixtime.toDateString();
+            $('#taskList').append("<li>"+tasks[i].Task+" end at: "+date+"</li>");
+        
+        }
         //refresh the listview
         $('#taskList').listview('refresh');
     }
@@ -48,7 +52,8 @@ function error(err) {
 
 function onPageShow() {
     getHomepagePosition();
-    Backendless.Data.of("TASKS").find().then(processResults).catch(error);
+//    if(nowposition != null)
+//    {Backendless.Data.of("TASKS").find().then(processResults).catch(error);}   
 	console.log("page shown");
 } 
 
@@ -182,7 +187,9 @@ function changeHeader(position){
         if ((Math.abs(latitude - position[i].Latitude) <=0.001) && ((Math.abs(longitude - position[i].Longitude) <=0.001)))
         {
             document.getElementById("header").innerHTML = position[i].PositionName;
-            console.log("I am here " + position[i].PositionName);
+            nowposition = position[i].PositionName;
+            console.log("I am here " + nowposition);
+            Backendless.Data.of("TASKS").find().then(processResults).catch(error);   
         
         }
         else
