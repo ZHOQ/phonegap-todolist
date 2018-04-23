@@ -1,11 +1,14 @@
+var latitude, longitude;
+
+
 //when the jQuery Mobile page is initialised
-$(document).on('pageinit', function() {
+/*$(document).on('pageinit', function() {
 	
 	//set up listener for button click
 	$(document).on("pageshow", "#todopage", homepage);
 	
 	
-});
+});*/
 
 var APPLICATION_ID = 'C53D7B11-1C15-6058-FF51-7ACFFE97EF00';
 var API_KEY = '7517A5E0-1DCB-4526-FF91-58DC6C2AFE00';
@@ -13,16 +16,7 @@ Backendless.serverURL = "https://api.backendless.com";
 Backendless.initApp(APPLICATION_ID, API_KEY);
 $(document).on("pageshow","#todopage", onPageShow);
 
-function homepage(){
-    alert( position.coords.latitude);
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-        for (var i = 0; i < position.length; i++) { 
-        if ((Math.abs(latitude - position[i].Latitude) <=0.001) && ((Math.abs(longitude - position[i].Longitude) <=0.001{
-                                                                    document.getElementById("p1").innerHTML=positon[i].PositionName;}
-        
-    }
-}
+
 
 function processResults(tasks) {
     //display the first task in an array of tasks. 
@@ -53,6 +47,7 @@ function error(err) {
 }
 
 function onPageShow() {
+    getHomepagePosition();
     Backendless.Data.of("TASKS").find().then(processResults).catch(error);
 	console.log("page shown");
 } 
@@ -113,8 +108,8 @@ function successPosition(position) {
 
 	//lets get some stuff out of the position object
 	//var time = position.timestamp;
-	var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
+	latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
     latitude = latitude.toFixed(5);
     longitude = longitude.toFixed(5);
     
@@ -146,4 +141,57 @@ function onAddPosition() {
     newPosition.Longitude = longitude;
     Backendless.Data.of("Position").save(newPosition).then(saved).catch(error); 
     
+}
+
+
+//Call this function when you want to get the current position
+function getHomepagePosition() {
+	
+    
+    //alert("getHomepagePosition");
+    
+	//instruct location service to get position with appropriate callbacks
+	navigator.geolocation.getCurrentPosition(successHomepagePosition, failHomepagePosition);
+}
+
+
+//called when the position is successfully determined
+function successHomepagePosition(positions) {
+	
+
+	//You can find out more details about what the position obejct contains here:
+	// http://www.w3schools.com/html/html5_geolocation.asp
+	//alert("successPosition " + positions.coords.latitude);
+
+	//lets get some stuff out of the position object
+	//var time = position.timestamp;
+	 latitude = positions.coords.latitude;
+     longitude = positions.coords.longitude;
+    latitude = latitude.toFixed(5);
+    longitude = longitude.toFixed(5);
+    Backendless.Data.of("POSITION").find().then(changeHeader).catch(error);
+
+	
+}
+
+
+function changeHeader(position){
+    //   alert("changeHeader " + longitude);
+     //alert(position[0].PositionName);
+        for (var i = 0; i < position.length; i++) {       
+        if ((Math.abs(latitude - position[i].Latitude) <=0.001) && ((Math.abs(longitude - position[i].Longitude) <=0.001)))
+        {
+            document.getElementById("header").innerHTML = position[i].PositionName;
+            console.log("I am here " + position[i].PositionName);
+        
+        }
+        else
+        {console.log("Not in " + position[i].PositionName);}
+    }
+}
+
+//called if the position is not obtained correctly
+function failHomepagePosition(error) {
+      alert("failHomepagePosition");
+	
 }
