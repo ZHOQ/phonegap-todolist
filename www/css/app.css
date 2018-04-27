@@ -1,6 +1,6 @@
 body{
     background: rgb(50, 56, 63);
-    font: 12px Arial, Helvetica, sans-serif;
+    
 }
 .form{
 	text-align:center;
@@ -77,10 +77,7 @@ input{
     background-image: linear-gradient(top, #5a9b39, #71b239);
     text-decoration:none;
 }
-h5{
-    color:#666666;
-    font-size:14px;
-}
+
 
 .info {
     font-size: 11px;

@@ -4,7 +4,11 @@ var APPLICATION_ID = 'C53D7B11-1C15-6058-FF51-7ACFFE97EF00';
 var API_KEY = '7517A5E0-1DCB-4526-FF91-58DC6C2AFE00';
 Backendless.serverURL = "https://api.backendless.com";
 Backendless.initApp(APPLICATION_ID, API_KEY);
+
+if (!APPLICATION_ID || !API_KEY)
+    alert("Missing application ID or api key arguments. Login to Backendless Console, select your app and get the ID and key from the Manage > App Settings screen. Copy/paste the values into the Backendless.initApp call located in Todolist-Login.js");
 $(document).on("pageshow","#todopage", onPageShow);
+
 
 function processResults(tasks) {
     //display the first task in an array of tasks. 
