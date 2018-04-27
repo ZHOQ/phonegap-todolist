@@ -1,4 +1,4 @@
-var latitude, longitude, nowposition;
+var latitude, longitude, nowposition, username;
 
 var APPLICATION_ID = 'C53D7B11-1C15-6058-FF51-7ACFFE97EF00';
 var API_KEY = '7517A5E0-1DCB-4526-FF91-58DC6C2AFE00';
@@ -25,12 +25,14 @@ function processResults(tasks) {
             var date = unixtime.toDateString();
             $('#taskList').append("<button id="+tasks[i].Task+" class='ui-btn ui-btn-inline ui-corner-all ui-shadow w3-block' >"+tasks[i].Task+" end at: "+date+"</button><br>");
         	$('#'+tasks[i].Task).on("tap",function(){
-                alert("Stop tapping!");
+               // alert("Stop tapping!");
                 $(this).css('color', 'red');
             }); 	
             $('#'+tasks[i].Task).on("swipeleft",function(){
-                $(this).css('color', 'gray');
                 tasks[i].State = 1;
+                $(this).css('color', 'gray');
+                
+                console.log(tasks[i].State);
             });   
             $('#'+tasks[i].Task).on("swiperight",function(){
                 $(this).css('color', 'blue');
@@ -93,6 +95,7 @@ function onAddTask() {
     newTask.Deadline = deadline;
     newTask.PositionID = position;
     newTask.State = 0;
+    console.log("user is "+ username);
     Backendless.Data.of("Tasks").save(newTask).then(saved).catch(error); 
     
 }
@@ -191,7 +194,7 @@ function changeHeader(position){
     //   alert("changeHeader " + longitude);
      //alert(position[0].PositionName);
         for (var i = 0; i < position.length; i++) {       
-        if ((Math.abs(latitude - position[i].Latitude) <=0.001) && ((Math.abs(longitude - position[i].Longitude) <=0.001)))
+        if ((Math.abs(latitude - position[i].Latitude) <=0.002) && ((Math.abs(longitude - position[i].Longitude) <=0.002)))
         {
             document.getElementById("header").innerHTML = position[i].PositionName;
             nowposition = position[i].objectId;

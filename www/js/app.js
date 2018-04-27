@@ -177,13 +177,7 @@ if (!APPLICATION_ID || !API_KEY)
         }
     });
 
-    $(".date").datepicker({
-        beforeShow: function(input, inst) {
-            setTimeout(function () {
-                inst.dpDiv.css({ left: 50 + '%', top:218, marginLeft: -30 });
-            }, 0);
-        }
-    });
+
 
     $('#register').on('click', function() {
         var user = new Backendless.User();
