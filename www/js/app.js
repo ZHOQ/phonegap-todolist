@@ -53,6 +53,8 @@ $.getScript(((window.location.protocol == 'file:') ? "http:" : window.location.p
         console.log("user has logged in");
         $('.login').hide();
         $('.logined').show();
+        $('#user').empty();
+        $('#user').append(username);
     }
 
     

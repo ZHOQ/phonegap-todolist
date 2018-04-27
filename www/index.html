@@ -95,7 +95,7 @@
     <div data-role="page" id="userpage">
         
  	<div data-role="header">
-        <h1 id="header">User</h1>
+        <h1>User</h1>
         <a href="#todopage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Homepage</a>
         </div>
         
@@ -110,10 +110,7 @@
                 <label for="login">Login:</label><input type="text" id="login" placeholder="login" />
             </div>
             <div class="block">
-                <label for="password">Password:</label><input type="password" id="password" placeholder="password" /><a href="#" id="restore">restore</a>
-            </div>
-            <div class="block" style="height:20px">
-                <input type="checkbox" id="remember" /><label class="remember" for="remember">Remember me</label>
+                <label for="password">Password:</label><input type="password" id="password" placeholder="password" />
             </div>
             <div class="btns">
                 <a href="register.html" id="registerLogin" class="btn-success">Register</a>
@@ -121,43 +118,20 @@
             </div>
                             
         </div>
-        <div class="info">NOTE: You can change this page.</div>
+        
     </div>
     <div class="form logined span12">
         <div class="appLogin">
             <h5> Login</h5>
             <div class="block" style="margin:5px 0">
-                You are logged in now
+                welcome <h5 id="user"> User </h5>
             </div>
             <div class="block" style="margin:0px 0 5px 0">
                 <button id="logout" class="btn-info">Log Out</button>
             </div>
         </div>
     </div>
-                            
-    <div class="form restorePass span12">
-        <div class="appLogin">
-            <h5>Todolist Password Restoration</h5>
-            <div class="block">
-                <label for="login">Login:</label><input type="text" id="loginRestore" />
-                <button id="restorePassword" class="btn-info">Restore Password</button>
-                <a href="index.html" id="back" class="btn-info">Back</a>
-            </div>
-        </div>
-        <div class="info">NOTE: You can change this page.</div>
-    </div>
-                            
-    <div class="form thankTemp span12">
-        <div class="appLogin">
-            <h5>Todolist Password Restoration</h5>
-            <div class="block">
-                We sent an email to your email adress with a link to password change page. Please check your email and follow link for further instructions.
-            </div>
-            <a href="index.html" class="btn-info back">Login</a>
-        </div>
-         <div class="info" style="margin:15px 0">NOTE: You can change this page.</div>
-    </div>
-                            
+                                                        
 </div> 
     <script src="js/zepto.js"></script>
     <script src="js/app.js"></script>
