@@ -74,6 +74,7 @@ function onCreatePageShow() {
 
 function processPositionResults(position) {
     //display the first task in an array of position. 
+     $('#addPosition').empty();
     //alert(position[0].PositionName);
     //add each position
 
