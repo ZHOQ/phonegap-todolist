@@ -1,4 +1,5 @@
-var latitude, longitude, nowposition, username;
+var latitude, longitude, nowposition, currentUser, whereClause, queryBuilder, username;
+
 
 var APPLICATION_ID = 'C53D7B11-1C15-6058-FF51-7ACFFE97EF00';
 var API_KEY = '7517A5E0-1DCB-4526-FF91-58DC6C2AFE00';
@@ -13,14 +14,16 @@ $(document).on("pageshow","#todopage", onPageShow);
 function processResults(tasks) {
     //display the first task in an array of tasks. 
     //alert(tasks[0].Task);
-    //alert(tasks[1].Task);
+    
     //wipe the list clean
     $('#taskList').empty();
     //add each tasks
     
+
+
     console.log("now position" + nowposition);
     for (var i = 0; i < tasks.length; i++) { 
-        if( nowposition == tasks[i].PositionID){
+        if( tasks[i].PositionID == nowposition){
             var unixtime = new Date(tasks[i].Deadline);
             var date = unixtime.toDateString();
             $('#taskList').append("<button id="+tasks[i].Task+" class='ui-btn ui-btn-inline ui-corner-all ui-shadow w3-block' >"+tasks[i].Task+" end at: "+date+"</button><br>");
@@ -57,7 +60,9 @@ function error(err) {
 function onPageShow() {
     getHomepagePosition();
 //    if(nowposition != null)
-//    {Backendless.Data.of("TASKS").find().then(processResults).catch(error);}   
+//    {Backendless.Data.of("TASKS").find().then(processResults).catch(error);}
+
+   
 	console.log("page shown");
     
                        
@@ -68,7 +73,8 @@ function onPageShow() {
 $(document).on("pageshow","#createpage", onCreatePageShow);
 
 function onCreatePageShow() {
-    Backendless.Data.of("POSITION").find().then(processPositionResults).catch(error);
+    
+    Backendless.Data.of("POSITION").find(queryBuilder).then(processPositionResults).catch(error);
 	console.log("page shown");
 }
 
@@ -185,7 +191,7 @@ function successHomepagePosition(positions) {
      longitude = positions.coords.longitude;
     latitude = latitude.toFixed(5);
     longitude = longitude.toFixed(5);
-    Backendless.Data.of("POSITION").find().then(changeHeader).catch(error);
+    Backendless.Data.of("POSITION").find(queryBuilder).then(changeHeader).catch(error);
 
 	
 }
@@ -194,13 +200,22 @@ function successHomepagePosition(positions) {
 function changeHeader(position){
     //   alert("changeHeader " + longitude);
      //alert(position[0].PositionName);
+        Backendless.UserService.getCurrentUser()
+            .then( function( currentUser ) {
+            whereClause = "ownerId = '"+currentUser.objectId+"'" ;  
+            queryBuilder = Backendless.DataQueryBuilder.create().setWhereClause( whereClause );
+        })
+            .catch( function ( error ) {
+            
+        });
+   
         for (var i = 0; i < position.length; i++) {       
         if ((Math.abs(latitude - position[i].Latitude) <=0.002) && ((Math.abs(longitude - position[i].Longitude) <=0.002)))
         {
             document.getElementById("header").innerHTML = position[i].PositionName;
             nowposition = position[i].objectId;
             console.log("I am here " + position[i].PositionName + nowposition);
-            Backendless.Data.of("TASKS").find().then(processResults).catch(error);   
+            Backendless.Data.of("TASKS").find(queryBuilder).then(processResults).catch(error);   
         
         }
         else
