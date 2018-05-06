@@ -52,7 +52,6 @@ input{
     -webkit-border-radius: 5px;
     border-radius: 5px;
     text-shadow: 0 1px 2px #333333;
-    
 }
 
 .btn-success{
@@ -168,7 +167,7 @@ input{
 	margin: 5px 5px;
 	padding: 5px 10px;
 	font-size: 16px;
-	width: 80px;
+	
 	text-align:center;
 }
 .register label{

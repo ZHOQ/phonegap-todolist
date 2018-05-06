@@ -12,42 +12,43 @@ $(document).on("pageshow","#todopage", onPageShow);
 
 
 function processResults(tasks) {
-    //display the first task in an array of tasks. 
-    //alert(tasks[0].Task);
-    
+    //display the first task in an array of tasks.   
     //wipe the list clean
     $('#taskList').empty();
-    //add each tasks
     
+    //add each tasks in button format
     console.log("now position" + nowposition);
     for (var i = 0; i < tasks.length; i++) { 
+        //check if the position user now in is same as the tasks they want to carry on
         if( tasks[i].PositionID == nowposition){
+            // set the deadline in a common format
             var unixtime = new Date(tasks[i].Deadline);
             var date = unixtime.toDateString();
-        
+            //add tasks
             $('#taskList').append("<button  id="+i+" value= '"+i+"' class='ui-btn ui-corner-all ui-shadow w3-block' >"+tasks[i].Task+" end at: "+date+"</button><br>");
+            //check if the state is 0 or 1, 0 means that tasks haven't finished and 1 means that tasks are finished
             if(tasks[i].State == 0){
                 $('#'+i).css('color', 'black');
             }
             if(tasks[i].State == 1){
                 $('#'+i).css('color', 'gray');
             }
+            //modify tasks (haven't update this function)
         //$('#taskList').on("tap",'button',function(){
             // alert("Stop tapping!");
          //   var n = $(this).val();
          //   $(this).css('color', 'red');
-        //}); 	
+        //}); 
+        // swipe left to change the state of the tasks to 1    
         $('#taskList').on("swipeleft",'button',function(){
             var n = $(this).val();
             var updateTasks = {
                 objectId:tasks[n].objectId,
-                Task:tasks[n].Task,
-                Deadline:tasks[n].Deadline,
-                PositionID:tasks[n].PositionID,
                 State:1}
             $(this).css('color', 'gray');
            Backendless.Data.of( "TASKS" ).save(updateTasks).then(saved).catch(error);
-        });   
+        });
+        // swipe left to change the state of the tasks to 0 
         $('#taskList').on("swiperight",'button',function(){
             var n = $(this).val();
             var updateTasks = {
@@ -57,8 +58,9 @@ function processResults(tasks) {
             Backendless.Data.of( "TASKS" ).save(updateTasks).then(saved).catch(error);
         });
         }
-        //refresh the listview
+        //refresh the listview 
         $('#taskList').listview('refresh');
+       
 
     }
 
@@ -77,31 +79,29 @@ function error(err) {
 }
 
 function onPageShow() {
+    //get the positon now users in
     getHomepagePosition();
 //    if(nowposition != null)
 //    {Backendless.Data.of("TASKS").find().then(processResults).catch(error);}
 
    
 	console.log("page shown");
-    
-                       
-
- 
+     
 } 
 
 $(document).on("pageshow","#createpage", onCreatePageShow);
 
 function onCreatePageShow() {
-    
+    //find the data of position that current user saved
     Backendless.Data.of("POSITION").find(queryBuilder).then(processPositionResults).catch(error);
 	console.log("page shown");
 }
 
 function processPositionResults(position) {
-    //display the first task in an array of position. 
+    //wipe the list clean. 
      $('#addPosition').empty();
     //alert(position[0].PositionName);
-    //add each position
+    //add each position in option format
 
     for (var i = 0; i < position.length; i++) { 
         $("#addPosition").append("<option value='"+position[i].objectId+"'>"+position[i].PositionName+"</option>");
@@ -113,6 +113,7 @@ function processPositionResults(position) {
 
 function onAddTask() {
     console.log("add task button clicked");
+    //save task name, deadline, position and state, initial state is 0, means task is not finish
     var tasktext = $('#addTaskText').val();
     var deadline = $('#addDeadline').val();
     var position = $('#addPosition').val();
@@ -131,8 +132,7 @@ $(document).on("click", "#getLocationButton", getPosition);
 //Call this function when you want to get the current position
 function getPosition() {
 	
-    
-    alert("getPosition");
+    //alert("getPosition");
     
 	//instruct location service to get position with appropriate callbacks
 	navigator.geolocation.getCurrentPosition(successPosition, failPosition);
@@ -142,7 +142,7 @@ function getPosition() {
 //called when the position is successfully determined
 function successPosition(position) {
 	
-    alert("successPosition " + position.coords.latitude);
+    //alert("successPosition " + position.coords.latitude);
 	//You can find out more details about what the position obejct contains here:
 	// http://www.w3schools.com/html/html5_geolocation.asp
 	
@@ -173,6 +173,7 @@ $(document).on("click", "#addPositionButton", onAddPosition);
 
 function onAddPosition() {
     console.log("add position button clicked");
+    //save position now user in
     latitude = $('#lattext').val();
     longitude = $('#longtext').val();
     var position = $('#position').val();
@@ -219,6 +220,7 @@ function successHomepagePosition(positions) {
 function changeHeader(position){
     //   alert("changeHeader " + longitude);
      //alert(position[0].PositionName);
+    //find the data current user saved
         Backendless.UserService.getCurrentUser()
             .then( function( currentUser ) {
             whereClause = "ownerId = '"+currentUser.objectId+"'" ;  
@@ -227,7 +229,7 @@ function changeHeader(position){
             .catch( function ( error ) {
             
         });
-   
+    //check if the user in the position they have saved, if yes change header as the position name they saved
         for (var i = 0; i < position.length; i++) {       
         if ((Math.abs(latitude - position[i].Latitude) <=0.002) && ((Math.abs(longitude - position[i].Longitude) <=0.002)))
         {
