@@ -6,13 +6,13 @@
         id        = "mob.app.dev.todolist"
         version   = "1.0.0">
 
-    <name>Todo List Test</name>
+    <name>Todo List</name>
 
     <description>
-        A sample application that counts the occurances of lifecycle events.
+        A sample todo list app which list different tasks by different place.
     </description>
 
-    <author href="worcester.ac.uk" email="c.bowers@worc.ac.uk">
+    <author href="worcester.ac.uk" email="zhoq1_15@uni.worc.ac.uk">
         WBS Computing
     </author>
 
