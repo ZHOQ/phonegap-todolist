@@ -8,8 +8,8 @@
     <script src="jquery-mobile/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
     <link href="jquery-mobile/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css">
     
-    
     <link rel="stylesheet" href="css/app.css">
+    
     
     <script src="cordova.js"></script>
     <script src="js/backendless.js" type="text/javascript"></script>
@@ -39,12 +39,15 @@
 
     </div>
         
-    <div data-role="footer" data-position="fixed">Footer</div>
+    
 	</div>
     
 <div data-role="page" id="createpage">
         
- 	<div data-role="header"><h1>Create</h1></div>
+ 	<div data-role="header"><h1>Create</h1>
+           <a href="#userpage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">User</a>
+            <a href="#todopage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Homepage</a>
+    </div>
         
   	<div role="main" class="ui-content">
         <form>
@@ -56,22 +59,25 @@
         
         <!--<input type="text" name="textinput" id="addPosition" value="" placeholder="Position" />-->
   		<input type="button" id="addTaskButton" value="Add Task" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" />
+            
         </form> 
-        <a href="#todopage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" >Go to Homepage.</a>
-        <a href="#positionpage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Add a new position.</a>
+        <a href="#positionpage" class="ui-btn ui-corner-all ui-shadow">Add a new position.</a>
 
     </div>
         
-    <div data-role="footer" data-position="fixed">Footer</div>
+    
 	</div>
     
     <div data-role="page" id="positionpage">
         
-        <div data-role="header"><h1>position</h1></div>
+        <div data-role="header"><h1>position</h1>
+            <a href="#userpage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">User</a>
+            <a href="#todopage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Homepage</a>
+        </div>
         
   	<div role="main" class="ui-content">
     <div data-role="fieldcontain">
-        <button id="getLocationButton" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Get Location</button>
+        <button id="getLocationButton" class="ui-btn ui-corner-all ui-shadow">Get Location</button>
         <form>	
         <label for="positiontext">Position name:</label>
       	<input type="text" name="position" id="position" value=""  />
@@ -83,11 +89,11 @@
         <input type="button" id="addPositionButton" value="Add Position" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" />
         </form>
     </div> 
-        <a href="#todopage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Go to Homepage.</a>
+        <a href="#createpage" class="ui-btn ui-corner-all ui-shadow">Back to create page.</a>
 
     </div>
         
-    <div data-role="footer" data-position="fixed">Footer</div>
+    
 	</div>
     
     <div data-role="page" id="userpage">
@@ -136,7 +142,7 @@
 
     </div>
         
-    <div data-role="footer" data-position="fixed">Footer</div>
+    
 	</div>
 </body>
 </html>

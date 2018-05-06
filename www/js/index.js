@@ -32,9 +32,8 @@ function processResults(tasks) {
                 $(this).css('color', 'red');
             }); 	
             $('#'+tasks[i].Task).on("swipeleft",function(){
-                tasks[i].State = 1;
+                //tasks[i].State = 1;
                 $(this).css('color', 'gray');
-                
                 console.log(tasks[i].State);
             });   
             $('#'+tasks[i].Task).on("swiperight",function(){
