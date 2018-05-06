@@ -25,7 +25,7 @@ function processResults(tasks) {
             var unixtime = new Date(tasks[i].Deadline);
             var date = unixtime.toDateString();
         
-            $('#taskList').append("<button  id="+i+" value= '"+i+"' class='ui-btn ui-btn-inline ui-corner-all ui-shadow w3-block' >"+tasks[i].Task+" end at: "+date+"</button><br>");
+            $('#taskList').append("<button  id="+i+" value= '"+i+"' class='ui-btn ui-corner-all ui-shadow w3-block' >"+tasks[i].Task+" end at: "+date+"</button><br>");
             if(tasks[i].State == 0){
                 $('#'+i).css('color', 'black');
             }
