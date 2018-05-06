@@ -1,4 +1,4 @@
-var latitude, longitude, nowposition, currentUser, whereClause, queryBuilder, username;
+var latitude, longitude, nowposition, whereClause, queryBuilder, username;
 
 
 var APPLICATION_ID = 'C53D7B11-1C15-6058-FF51-7ACFFE97EF00';
@@ -19,32 +19,52 @@ function processResults(tasks) {
     $('#taskList').empty();
     //add each tasks
     
-
-
     console.log("now position" + nowposition);
     for (var i = 0; i < tasks.length; i++) { 
         if( tasks[i].PositionID == nowposition){
             var unixtime = new Date(tasks[i].Deadline);
             var date = unixtime.toDateString();
-            $('#taskList').append("<button id="+tasks[i].Task+" class='ui-btn ui-btn-inline ui-corner-all ui-shadow w3-block' >"+tasks[i].Task+" end at: "+date+"</button><br>");
-        	$('#'+tasks[i].Task).on("tap",function(){
-               // alert("Stop tapping!");
-                $(this).css('color', 'red');
-            }); 	
-            $('#'+tasks[i].Task).on("swipeleft",function(){
-                //tasks[i].State = 1;
-                $(this).css('color', 'gray');
-                console.log(tasks[i].State);
-            });   
-            $('#'+tasks[i].Task).on("swiperight",function(){
-                $(this).css('color', 'blue');
-            });
+        
+            $('#taskList').append("<button  id="+i+" value= '"+i+"' class='ui-btn ui-btn-inline ui-corner-all ui-shadow w3-block' >"+tasks[i].Task+" end at: "+date+"</button><br>");
+            if(tasks[i].State == 0){
+                $('#'+i).css('color', 'black');
+            }
+            if(tasks[i].State == 1){
+                $('#'+i).css('color', 'gray');
+            }
+        //$('#taskList').on("tap",'button',function(){
+            // alert("Stop tapping!");
+         //   var n = $(this).val();
+         //   $(this).css('color', 'red');
+        //}); 	
+        $('#taskList').on("swipeleft",'button',function(){
+            var n = $(this).val();
+            var updateTasks = {
+                objectId:tasks[n].objectId,
+                Task:tasks[n].Task,
+                Deadline:tasks[n].Deadline,
+                PositionID:tasks[n].PositionID,
+                State:1}
+            $(this).css('color', 'gray');
+           Backendless.Data.of( "TASKS" ).save(updateTasks).then(saved).catch(error);
+        });   
+        $('#taskList').on("swiperight",'button',function(){
+            var n = $(this).val();
+            var updateTasks = {
+                objectId:tasks[n].objectId,
+                State:0}
+            $(this).css('color', 'black');
+            Backendless.Data.of( "TASKS" ).save(updateTasks).then(saved).catch(error);
+        });
         }
         //refresh the listview
         $('#taskList').listview('refresh');
+
     }
 
 }
+
+
 
 $(document).on("click", "#addTaskButton", onAddTask);
 
