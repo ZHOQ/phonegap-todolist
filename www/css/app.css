@@ -221,4 +221,9 @@ input{
 .logined.info{
     margin:20px 0;
 }
-                                
+    
+#footer{   
+    position:fixed;
+    bottom:0px;
+    text-align: center;
+}

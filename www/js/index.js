@@ -15,13 +15,15 @@ function processResults(tasks) {
     //display the first task in an array of tasks.   
     //wipe the list clean
     $('#taskList').empty();
-    
+    var count=0;//count all tasks
+    var n=0;//count unfinished tasks
     //add each tasks in button format
     console.log("now position" + nowposition);
     for (var i = 0; i < tasks.length; i++) { 
         //check if the position user now in is same as the tasks they want to carry on
         if( tasks[i].PositionID == nowposition){
             // set the deadline in a common format
+            count++;
             var unixtime = new Date(tasks[i].Deadline);
             var date = unixtime.toDateString();
             //add tasks
@@ -29,9 +31,11 @@ function processResults(tasks) {
             //check if the state is 0 or 1, 0 means that tasks haven't finished and 1 means that tasks are finished
             if(tasks[i].State == 0){
                 $('#'+i).css('color', 'black');
+                n++;
             }
             if(tasks[i].State == 1){
                 $('#'+i).css('color', 'gray');
+                
             }
             //modify tasks (haven't update this function)
         //$('#taskList').on("tap",'button',function(){
@@ -57,10 +61,12 @@ function processResults(tasks) {
             $(this).css('color', 'black');
             Backendless.Data.of( "TASKS" ).save(updateTasks).then(saved).catch(error);
         });
+            $('#footer').empty();
+            $('#footer').append("All tasks:"+count+" unfinished tasks:"+n);
         }
         //refresh the listview 
         $('#taskList').listview('refresh');
-       
+        
 
     }
 
